@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class OpenGateOnClickScript : MonoBehaviour
@@ -7,16 +6,17 @@ public class OpenGateOnClickScript : MonoBehaviour
     public GameObject gate1;
     public GameObject gate2;
     public GameObject player;
-    bool gateClosed = true;
+    public bool gateClosed1 = true;
+    public bool gateClosed2 = true;
 
   
     public void Gate1Behavior()
     {
-        if (gateClosed)
+        if (gateClosed1)
         {
             OpenGate1();
         }
-        else if (!gateClosed)
+        else if (!gateClosed1)
         {
             CloseGate1();
         }
@@ -24,24 +24,24 @@ public class OpenGateOnClickScript : MonoBehaviour
         void OpenGate1()
         {
             gate1.transform.position = new Vector3(-2, 4, 0);
-            gateClosed = false;
+            gateClosed1 = false;
         }
 
         void CloseGate1()
         {
             gate1.transform.position = new Vector3(-2, 0, 0);
-            gateClosed = true;
+            gateClosed1 = true;
         }
     }
 
 
     public void Gate2Behavior()
     {
-        if (gateClosed)
+        if (gateClosed2)
         {
             OpenGate2();
         }
-        else if (!gateClosed)
+        else if (!gateClosed2)
         {
             CloseGate2();
         }
@@ -49,29 +49,31 @@ public class OpenGateOnClickScript : MonoBehaviour
        void OpenGate2()
        {
             gate2.transform.position = new Vector3(3, 4, 0);
-            gateClosed = false;
+            gateClosed2 = false;
        }
 
        void CloseGate2()
        {
             gate2.transform.position = new Vector3(3, 0, 0);
-            gateClosed = true;
+            gateClosed2 = true;
        }
     }
 
-
-
-
-
-
-
+    private void Update()
+    {
+        PlayerBehaviour();
+    }
 
     public void PlayerBehaviour()
     {
+        if(gateClosed1 == false && gateClosed2 == false)
         {
-           player.transform.position = new Vector3(3.5f, -1, 0);
+            player.GetComponent<Animator>().enabled = true;
         }
+        else
+        {
+            player.GetComponent<Animator>().enabled = false;
+        }
+ 
     }
-
-
 }
